@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzst.shopping.dao.BrandMapper">
+    <resultMap id="BaseResultMap" type="com.gzst.shopping.model.Brand">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="name" column="name" javaType="String"/>
+        <result property="firstChar" column="first_char" javaType="String"/>
+    </resultMap>
+    <select id="findAllBrands" resultMap="BaseResultMap" resultType="com.gzst.shopping.model.Brand">
+        select * from brand
+    </select>
+    <insert id="insertBrand" parameterType="com.gzst.shopping.model.Brand">
+        insert into brand(name,first_char) values (#{name},#{firstChar})
+    </insert>
+    <select id="findOne" resultMap="BaseResultMap" parameterType="Integer">
+        select *from brand where id=#{id}
+    </select>
+    <update id="updateBrand" parameterType="com.gzst.shopping.model.Brand">
+        update brand set name=#{name}, first_char=#{firstChar} where id=#{id}
+    </update>
+    <delete id="deleteBrand" parameterType="com.gzst.shopping.model.Brand">
+        delete from brand where id in
+        <foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

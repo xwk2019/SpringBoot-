@@ -1,0 +1,33 @@
+package com.gzst.shopping.dao;
+
+import com.gzst.shopping.model.Address;
+import com.gzst.shopping.model.AddressExample;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+@Mapper
+public interface AddressMapper {
+    long countByExample(AddressExample example);
+
+    int deleteByExample(AddressExample example);
+
+    int deleteByPrimaryKey(Long id);
+
+    int insert(Address record);
+
+    int insertSelective(Address record);
+
+    List<Address> selectByExample(AddressExample example);
+
+    Address selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") Address record, @Param("example") AddressExample example);
+
+    int updateByExample(@Param("record") Address record, @Param("example") AddressExample example);
+
+    int updateByPrimaryKeySelective(Address record);
+
+    int updateByPrimaryKey(Address record);
+}

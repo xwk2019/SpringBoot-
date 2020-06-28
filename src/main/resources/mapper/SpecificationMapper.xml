@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzst.shopping.dao.SpecificationMapper">
+    <resultMap id="baseResultMap" type="com.gzst.shopping.model.Specification">
+        <id column="id" property="id" javaType="Long"></id>
+        <result property="specName" column="spec_name" javaType="String"/>
+    </resultMap>
+    <select id="findAll" resultMap="baseResultMap">
+        select * from specification
+    </select>
+    <insert id="insertSpecification" parameterType="com.gzst.shopping.model.Specification">
+        <!--难点:插入之后并把对象的ID返回-->
+        <selectKey keyProperty="id" resultType="Long" order="AFTER">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
+        insert into specification(spec_name) values (#{specName})
+    </insert>
+    <delete id="deleteSpecification" parameterType="Long">
+        delete from specification where id=#{id}
+    </delete>
+    <select id="selectOne" resultMap="baseResultMap" parameterType="Long"
+            resultType="com.gzst.shopping.model.Specification">
+        select * from specification where id=#{id}
+    </select>
+    <update id="updateSpecification" parameterType="com.gzst.shopping.model.Specification">
+        update specification set spec_name=#{specName} where id=#{id}
+    </update>
+</mapper>
